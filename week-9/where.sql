@@ -37,3 +37,13 @@ FROM track
 WHERE name ILIKE '%of%'
 ORDER BY minutes DESC
 LIMIT 10;
+
+-- Obtener las canciones que duran entre 3 y 5 minutos,
+-- ordenadas por duarcion
+SELECT name,
+       concat(milliseconds / 1000 / 60, ':', lpad((milliseconds / 1000 % 60)::text, 2, '0')) duration,
+       milliseconds / 1000 / 60                                                              minutes,
+       milliseconds / 1000 % 60                                                              seconds
+FROM track
+WHERE milliseconds / 1000 / 60 BETWEEN 3 AND 5
+ORDER BY minutes DESC, seconds DESC;
